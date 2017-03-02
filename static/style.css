@@ -70,7 +70,7 @@ h3 {
   height: 100%;
   z-index : 4011;
   background-color : #00C853;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%,rgba(0,0,0,0.62) 45%,rgba(0,9,4,0.6) 47%,$rudy-accent-color 100%);
+  background-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%,rgba(0,0,0,0.62) 45%,rgba(0,9,4,0.6) 47%,#00C853 100%);
   box-shadow : inset 0px 0px 4px 4px rgba(100, 100, 100, .5);
   opacity : .1;
 }
