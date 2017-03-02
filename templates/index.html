@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="CLIENT_ID">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <div id="container">
+  </div>
+  <h3>Section Title</h3>
+  <div class="sketch">
+      <img class="headshot" src="/static/jane.png">
+      <dl>
+          <dt>Name</dt>
+          <dd>Jane Worth, "Jade"</dd>
+          <dt>Species</dt>
+          <dd>Human</dd>
+          <dt>Alterations</dt>
+          <dd>Skilljack</dd>
+      </dl>
+      <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada nibh dolor, condimentum elementum
+          nisi aliquam ac. Aliquam ac urna mi. Nullam non justo et metus ultricies fermentum id a diam. Pellentesque
+          habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse laoreet elit eu
+          nisi elementum, ut mattis metus cursus. Proin diam erat, rutrum ut est non, aliquet fermentum nulla. Ut
+          lobortis quis eros vel vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dictum,
+          ante eget accumsan cursus, turpis justo egestas ante, sed efficitur enim tortor id arcu. Fusce eleifend nisi
+          a turpis venenatis, sed faucibus nisi porttitor. Pellentesque habitant morbi tristique senectus et netus et
+          malesuada fames ac turpis egestas. Cras tristique imperdiet erat ut laoreet. Duis sem tellus, interdum quis
+          ullamcorper vel, venenatis ac sem. Integer sollicitudin vitae massa ac condimentum. Ut sed eros nec lacus
+          tincidunt commodo at in magna.
+      </p>
+  </div>
+
+  <p>Sed tempor blandit dolor. Praesent nec ligula eu risus viverra dapibus. Phasellus porta lectus eu magna lobortis,
+      vitae tincidunt quam pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+      Curae; Proin elit lectus, feugiat vel mauris vitae, elementum laoreet sapien. Phasellus est velit, tincidunt ut
+      sollicitudin at, consectetur eu lacus. Donec volutpat augue et arcu bibendum, id suscipit mauris consectetur.
+      Aliquam eu felis ullamcorper, fringilla nibh quis, blandit ante. Phasellus egestas tortor at dolor aliquam rhoncus
+      vel quis ipsum. Maecenas accumsan tincidunt purus, eu tristique ipsum molestie nec. Cras ac aliquet justo. Quisque
+      dui lectus, ultricies sit amet imperdiet varius, placerat ut turpis. Aenean molestie dolor orci, sed tempus lorem
+      luctus et. Curabitur varius pharetra neque id porta. Duis hendrerit et massa eget consequat. In mollis diam quis
+      lectus tempus porttitor
+  </p>
+  <p class="comment">
+      [--> Morbi viverra lobortis purus, ac viverra augue lacinia non. Quisque fermentum consequat iaculis. ]
+  </p>
+  <div id="terminal">
+      <div class="overlay"></div>
+  </div>
+
+  <script>
+      function onSignIn(guser) {
+        var token = guser.getAuthResponse().id_token
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', '/signin')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhr.onload = function() { console.log(xhr.responseText) }
+        xhr.send('token=' + token)
+      }
+  </script>
+</body>
+</html>
