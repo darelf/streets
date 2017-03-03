@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-signin-client_id" content="CLIENT_ID">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="/static/style.css">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
   <div id="container">
   </div>
   <h3>Section Title</h3>
@@ -54,14 +51,7 @@
   </div>
 
   <script>
-      function onSignIn(guser) {
-        var token = guser.getAuthResponse().id_token
-        var xhr = new XMLHttpRequest()
-        xhr.open('POST', '/signin')
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        xhr.onload = function() { console.log(xhr.responseText) }
-        xhr.send('token=' + token)
-      }
+
   </script>
 </body>
 </html>
