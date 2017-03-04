@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="container">
+  </div>
+  <h3>{{ contact.title_name }}</h3>
+  <div class="sketch">
+      <img class="headshot" src="/static/contacts/{{ contact.title_name }}.png">
+      <dl>
+          <dt>Name</dt>
+          <dd>{{ contact.name }}</dd>
+          <dt>Species</dt>
+          <dd>{{ contact.species }}</dd>
+          <dt>Alterations</dt>
+          <dd>{{ contact.alterations }}</dd>
+      </dl>
+
+  </div>
+  {% for item in contact.comments %}
+  <p class="comment">
+      [--> {{ item }} ]
+  </p>
+  {% endfor %}
+  <div id="terminal">
+      <div class="overlay"></div>
+  </div>
+
+  <script>
+
+  </script>
+</body>
+</html>
