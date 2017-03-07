@@ -2,6 +2,7 @@ from sanic import Sanic
 from sanic.response import html, text
 from contacts import Contacts
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
 env = Environment(
     loader=FileSystemLoader('templates'),
     autoescape=select_autoescape(['html'])
@@ -34,4 +35,8 @@ async def contact(request, name):
         return html(env.get_template('index.html').render(title="Street Scum"))
 
 
-app.run("0.0.0.0", port=8888)
+def run():
+    app.run("0.0.0.0", port=8888)
+
+if __name__ == '__main__':
+    run()

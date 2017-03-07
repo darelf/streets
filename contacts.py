@@ -1,6 +1,5 @@
 import plyvel, time, json, markdown, os
 
-
 class Contacts:
     def __init__(self):
         self.db = None
@@ -58,7 +57,7 @@ class Contacts:
                           }]
         }
 
-        self.db = plyvel.DB('contacts', create_if_missing=True)
+        self.db = plyvel.DB('contactDB', create_if_missing=True)
         item = self.db.get(b'jade')
         if not item:
             self.db.put(b'jade', bytes(json.dumps(jade), 'utf-8'))
