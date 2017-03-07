@@ -7,9 +7,7 @@ class Contacts:
     def get_contact(self, name):
         item = self.db.get(name)
         if item:
-            print ('found item')
             c = json.loads(item)
-            print (c)
             path = 'assets/' + name.decode() + '.md'
             if os.path.isfile(path):
                 with open(path, 'r') as myfile:
