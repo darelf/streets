@@ -19,11 +19,13 @@
           <dt class="glow">Alterations</dt>
           <dd>{{ contact.alterations }}</dd>
       </dl>
-
+      <div class="background">
+          {{ contact.background|safe }}
+      </div>
   </div>
   {% for item in contact.comments %}
   <p class="comment">
-      [--> [{{ item.sequence }}] {{ item.msg }} ::-{{ item.commenter }} ]
+      [>>>> [{{ item.sequence }}] {{ item.msg }} ::-{{ item.commenter }} ]
   </p>
   {% endfor %}
   <div id="terminal">

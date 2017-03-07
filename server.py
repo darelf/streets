@@ -10,7 +10,6 @@ env = Environment(
 contacts = Contacts()
 contacts.initialize()
 cseq = contacts.add_comment(b'jade', 'darel', 'This is an additional comment added dynamically')
-print('sequence:', cseq)
 contacts.remove_comment(b'jade', cseq)
 
 app = Sanic()
@@ -27,11 +26,12 @@ async def index(request):
 @app.get('/contact/<name>')
 async def contact(request, name):
     c = contacts.get_contact(bytes(name,'utf-8'))
+    print(c)
     if c:
         return html(env.get_template('contact.html').render(title="Street Scum", contact=c))
     else:
         # Need a 404 here
-        return html(env.get_template('index.html').render(title="Stree Scum"))
+        return html(env.get_template('index.html').render(title="Street Scum"))
 
 
 app.run("0.0.0.0", port=8888)

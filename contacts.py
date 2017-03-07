@@ -1,6 +1,4 @@
-import plyvel
-import time
-import json
+import plyvel, time, json, markdown, os
 
 
 class Contacts:
@@ -9,8 +7,18 @@ class Contacts:
 
     def get_contact(self, name):
         item = self.db.get(name)
-        if item: return json.loads(item)
-        return None
+        if item:
+            print ('found item')
+            c = json.loads(item)
+            print (c)
+            path = 'assets/' + name.decode() + '.md'
+            if os.path.isfile(path):
+                with open(path, 'r') as myfile:
+                    text = myfile.read()
+                    c['background'] = markdown.markdown(text, output_format='html5')
+            return c
+        else:
+            return None
 
     def add_comment(self, name, commenter, msg):
         item = self.db.get(name)
@@ -46,7 +54,7 @@ class Contacts:
             'alterations': 'Skilljack',
             'comments': [{'commenter':'club0',
                           'sequence': time.time(),
-                          'msg': 'Curabitur varius pharetra neque id porta. Duis hendrerit et massa eget consequat. In mollis diam quis lectus tempus porttitor'
+                          'msg': 'Jade is a real party girl. Best source for Jazz in south Redmond. Never overcharges, and always has quality goods.'
                           }]
         }
 
