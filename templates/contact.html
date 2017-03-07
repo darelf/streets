@@ -23,7 +23,7 @@
   </div>
   {% for item in contact.comments %}
   <p class="comment">
-      [--> {{ item }} ]
+      [--> [{{ item.sequence }}] {{ item.msg }} ::-{{ item.commenter }} ]
   </p>
   {% endfor %}
   <div id="terminal">
