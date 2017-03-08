@@ -42,6 +42,8 @@ class Contacts:
                     comments.remove(x)
                     break
             self.db.put(name, bytes(json.dumps(c), 'utf-8'))
+            return sequence
+        return 0
 
     def initialize(self):
         jade = {

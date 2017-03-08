@@ -38,6 +38,7 @@
   </div>
 
   <script>
+      var current_commenter = 'anon'
       var comment_input = document.getElementById('comment-input')
       var comment_wrap = document.getElementById('comment-wrapper')
       document.getElementById('open-comment').addEventListener('click', function() {
@@ -66,7 +67,23 @@
         }
       }
 
+      function post_comment(contact_name, login_name, text) {
+        var data = {
+          name: contact_name,
+          commenter: login_name,
+          msg: text
+        }
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', '/comment')
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            location.reload()
+          }
+        }
+        xhr.send( JSON.stringify(data) )
 
+      }
   </script>
 </body>
 </html>
