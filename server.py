@@ -27,7 +27,6 @@ async def index(request):
 @app.get('/contact/<name>')
 async def contact(request, name):
     c = contacts.get_contact(bytes(name,'utf-8'))
-    print(c)
     if c:
         return html(env.get_template('contact.html').render(title="Street Scum", contact=c))
     else:
