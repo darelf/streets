@@ -6,9 +6,14 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+  <div id="comment-wrapper" class="hidden">
+      <textarea id="comment-input"></textarea>
+      <div id="comment-btn" class="btn">Submit Comment</div> | <div id="comment-cancel" class="btn">Cancel</div>
+  </div>
+  <div id="console" class="hidden glow"></div>
   <div id="container">
   </div>
-  <h3>{{ contact.title_name }}</h3>
+  <h3>{{ contact.title_name }} <div id="open-comment" class="btn header-btn">Add Comment</div></h3>
   <div class="sketch">
       <img class="headshot" src="/static/contacts/{{ contact.title_name }}.png">
       <dl>
@@ -33,6 +38,34 @@
   </div>
 
   <script>
+      var comment_input = document.getElementById('comment-input')
+      var comment_wrap = document.getElementById('comment-wrapper')
+      document.getElementById('open-comment').addEventListener('click', function() {
+        comment_wrap.classList.remove('hidden')
+      })
+
+      document.getElementById('comment-btn').addEventListener('click', function() {
+        var txt = document.getElementById('comment-input').value
+        console.log(txt)
+        comment_wrap.classList.add('hidden')
+        comment_input.value = ''
+      })
+
+      document.getElementById('comment-cancel').addEventListener('click', function() {
+        comment_wrap.classList.add('hidden')
+        comment_input.value = ''
+      })
+
+      var con = document.getElementById('console')
+
+      function type_line(tlen, text, target, timing) {
+        var txt = text.substr(0, tlen++)
+        target.innerHTML = txt
+        if (tlen < text.length + 1) {
+          setTimeout(type_line.bind(null, tlen, text, target), timing)
+        }
+      }
+
 
   </script>
 </body>
