@@ -14,6 +14,12 @@
   <div id="console" class="hidden glow"></div>
   <div id="container">
   </div>
+  <div id="login-section" class="hidden">
+      <label for="username">Name</label>
+      <input id="username" type="text">
+      <label for="pword">Password</label>
+      <input id="pword" type="password">
+  </div>
   <h3>{{ contact.title_name }} <div id="open-comment" class="btn header-btn">Add Comment</div></h3>
   <div class="sketch">
       <img class="headshot" src="/static/contacts/{{ contact.title_name }}.png">
@@ -40,7 +46,25 @@
 
   <script src="/static/console.js"></script>
   <script>
-      var current_commenter = 'anon'
+     /* login code */
+
+      function post_login(name, pword) {
+        var data = {
+          username: name,
+          password: pword
+        }
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', '/login')
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+
+          }
+        }
+        xhr.send( JSON.stringify(data) )
+      }
+
+      /* comment code */
       var contact_key = document.getElementById('contact-key').value
       var comment_input = document.getElementById('comment-input')
       var comment_wrap = document.getElementById('comment-wrapper')
@@ -50,7 +74,7 @@
 
       document.getElementById('comment-btn').addEventListener('click', function() {
         var txt = document.getElementById('comment-input').value
-        post_comment(contact_key, current_commenter, txt)
+        post_comment(contact_key, txt)
       })
 
       document.getElementById('comment-cancel').addEventListener('click', function() {
@@ -58,10 +82,9 @@
         comment_input.value = ''
       })
 
-      function post_comment(contact_name, login_name, text) {
+      function post_comment(contact_name, text) {
         var data = {
           name: contact_name,
-          commenter: login_name,
           msg: text
         }
         var xhr = new XMLHttpRequest()

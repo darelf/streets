@@ -1,6 +1,7 @@
 from sanic import Sanic
 from sanic.response import html, json, text
 from contacts import Contacts
+import authorization
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 env = Environment(
@@ -22,15 +23,32 @@ async def index(request):
     return html(env.get_template('index.html').render(title="Street Scum"))
 
 
+@app.post('/login')
+async def login(request):
+    username = request.json['username']
+    pword = request.json['password']
+    token = authorization.authorize(username, pword)
+    if token:
+        response = json({'result': 'success'})
+        response.cookies['streetnode'] = token
+        response.cookies['streetnode']['httponly'] = True
+        return response
+    else:
+        return json({'result': 'failure'})
+
+
 @app.post('/comment')
 async def comment(request):
+    t = request.cookies.get('streetnode')
+    v = authorization.validate(t)
+    if not v: return json({'result': 'failure'})
     data = request.json
     name = bytes(data['name'], 'utf-8')
     cseq = 0
     if 'msg' not in data:
         if 'sequence' in data: cseq = contacts.remove_comment(name, data['sequence'])
     elif 'commenter' in data and 'msg' in data:
-        cseq = contacts.add_comment(bytes(data['name'], 'utf-8'), data['commenter'], data['msg'])
+        cseq = contacts.add_comment(bytes(data['name'], 'utf-8'), v['username'], data['msg'])
 
     if cseq > 0:
         return json({'result': 'success'})
