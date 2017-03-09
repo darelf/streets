@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
 @import url('https://fonts.googleapis.com/css?family=Bungee');
+* {
+  font-family: "Share Tech Mono";
+}
+
 body {
   padding: 20px;
   background-color: #000000;
   color: green;
-  font-family: "Share Tech Mono";
 }
 
 .hidden {
@@ -43,6 +46,7 @@ body {
   border: none;
   padding: 5px;
   font-style: italic;
+  outline: none;
 }
 
 .btn {
@@ -59,6 +63,7 @@ body {
 .header-btn {
   font-size: 12px;
   float: right;
+  font-family: Bungee;
 }
 
 #container:after {
@@ -80,6 +85,7 @@ h3 {
   font-family: Bungee;
   border-bottom: solid #640000 5px;
 }
+
 #terminal {
   position: fixed;
   top: 0;
@@ -90,6 +96,7 @@ h3 {
   z-index: 4000;
   pointer-events: none;
 }
+
 #terminal:before {
   pointer-events: none;
   content: '';
@@ -173,11 +180,16 @@ h3 {
 }
 .comment {
   font-style: italic;
+  white-space: pre-wrap;
 }
 .glow {
   text-shadow: 0 0 10px green,
    0 0 30px #00aa00,
    0 0 70px #00aa00;
+}
+
+.sketch {
+  min-height: 210px;
 }
 
 img.headshot {
@@ -186,6 +198,7 @@ img.headshot {
   padding-right: 10px;
   border-right-width: 3px;
   border-right-style: solid;
+  height: 200px;
 /*  border-image:
       linear-gradient(to bottom, green, rgba(0, 180, 0, 0)) 1 100%;
 */

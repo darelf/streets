@@ -42,7 +42,7 @@ async def comment(request):
 async def contact(request, name):
     c = contacts.get_contact(bytes(name,'utf-8'))
     if c:
-        return html(env.get_template('contact.html').render(title="Street Scum", contact=c))
+        return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name))
     else:
         # Need a 404 here
         return html(env.get_template('index.html').render(title="Street Scum"))

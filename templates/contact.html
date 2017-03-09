@@ -7,6 +7,7 @@
 </head>
 <body>
   <div id="comment-wrapper" class="hidden">
+      <input id="contact-key" type="hidden" value="{{ key }}">
       <textarea id="comment-input"></textarea>
       <div id="comment-btn" class="btn">Submit Comment</div> | <div id="comment-cancel" class="btn">Cancel</div>
   </div>
@@ -29,9 +30,9 @@
       </div>
   </div>
   {% for item in contact.comments %}
-  <p class="comment">
-      [>>>> [{{ item.sequence }}] {{ item.msg }} ::-{{ item.commenter }} ]
-  </p>
+  <p class="comment">[>> [{{ item.sequence }}]
+{{ item.msg }}
+  ::-{{ item.commenter }} <<]</p>
   {% endfor %}
   <div id="terminal">
       <div class="overlay"></div>
@@ -39,6 +40,7 @@
 
   <script>
       var current_commenter = 'anon'
+      var contact_key = document.getElementById('contact-key').value
       var comment_input = document.getElementById('comment-input')
       var comment_wrap = document.getElementById('comment-wrapper')
       document.getElementById('open-comment').addEventListener('click', function() {
@@ -47,7 +49,7 @@
 
       document.getElementById('comment-btn').addEventListener('click', function() {
         var txt = document.getElementById('comment-input').value
-        console.log(txt)
+        post_comment(contact_key, current_commenter, txt)
         comment_wrap.classList.add('hidden')
         comment_input.value = ''
       })
@@ -82,7 +84,6 @@
           }
         }
         xhr.send( JSON.stringify(data) )
-
       }
   </script>
 </body>
