@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+  <div id="console" class="hidden glow"></div>
   <div id="container">
   </div>
   <h3>News Feed</h3>
@@ -27,8 +28,12 @@
       <div class="overlay"></div>
   </div>
 
+  <script src="/static/console.js"></script>
   <script>
-
+      window.onload = function() {
+        var ws = new WebSocket('ws://localhost:8080/pubsub')
+        ws.onmessage = function(m) { queue_message(m.data) }
+      }
   </script>
 </body>
 </html>

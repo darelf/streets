@@ -1,10 +1,29 @@
 var con = document.getElementById('console')
+var current_console_items = []
+var queued_items = []
+var is_typing = false
 
 function type_line(tlen, text, target, timing) {
   var txt = text.substr(0, tlen++)
   target.innerHTML = txt
   if (tlen < text.length + 1) {
     setTimeout(type_line.bind(null, tlen, text, target), timing)
+  } else {
+    if (queued_items.length > 0) {
+      is_typing = true
+      show_message(queued_items.shift())
+    } else {
+      is_typing = false
+    }
+  }
+}
+
+function queue_message(msg) {
+  if (!is_typing) {
+    is_typing = true
+    show_message(msg)
+  } else {
+    queued_items.push(msg)
   }
 }
 

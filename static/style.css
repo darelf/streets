@@ -186,6 +186,7 @@ h3 {
 .glow {
   text-shadow: 0 0 10px green,
    0 0 30px #00aa00,
+   0 0 50px #00aa00,
    0 0 70px #00aa00;
 }
 
