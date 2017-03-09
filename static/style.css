@@ -21,7 +21,7 @@ body {
   width: 40%;
   height: 10em;
   z-index: 3000;
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0,0,0,0.9);
   padding: 15px;
   white-space: pre-wrap;
 }
