@@ -23,6 +23,7 @@ body {
   z-index: 3000;
   background-color: rgba(0,0,0,0.75);
   padding: 15px;
+  white-space: pre-wrap;
 }
 
 #comment-wrapper {

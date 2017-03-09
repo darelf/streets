@@ -50,8 +50,6 @@
       document.getElementById('comment-btn').addEventListener('click', function() {
         var txt = document.getElementById('comment-input').value
         post_comment(contact_key, current_commenter, txt)
-        comment_wrap.classList.add('hidden')
-        comment_input.value = ''
       })
 
       document.getElementById('comment-cancel').addEventListener('click', function() {
@@ -68,6 +66,19 @@
           setTimeout(type_line.bind(null, tlen, text, target), timing)
         }
       }
+
+      function show_message(msg) {
+        con.classList.remove('hidden')
+        type_line(0, msg, con, 100)
+      }
+
+      function close_console() {
+        con.classList.add('hidden')
+      }
+
+      document.addEventListener('keyup', function(ev) {
+        if (ev.keyCode == 27) close_console()
+      })
 
       function post_comment(contact_name, login_name, text) {
         var data = {
