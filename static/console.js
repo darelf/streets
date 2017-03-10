@@ -54,3 +54,6 @@ document.addEventListener('keyup', function(ev) {
   if (ev.keyCode == 27) close_console()
 })
 
+
+document.getElementById('main-content').addEventListener('click', close_console)
+

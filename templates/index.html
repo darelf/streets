@@ -7,31 +7,43 @@
 </head>
 <body>
   <div id="console" class="hidden glow"></div>
+  <div id="login-welcome" class="glow hidden"></div>
   <div id="container">
   </div>
-  <h3>News Feed</h3>
+  <div id="main-content">
+      <div id="login-section" class="hidden">
+          <label for="username">Name</label>
+          <input id="username" type="text">
+          <label for="pword">Password</label>
+          <input id="pword" type="password">
+      </div>
+      <h3>News Feed</h3>
 
-  <p>Sed tempor blandit dolor. Praesent nec ligula eu risus viverra dapibus. Phasellus porta lectus eu magna lobortis,
-      vitae tincidunt quam pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-      Curae; Proin elit lectus, feugiat vel mauris vitae, elementum laoreet sapien. Phasellus est velit, tincidunt ut
-      sollicitudin at, consectetur eu lacus. Donec volutpat augue et arcu bibendum, id suscipit mauris consectetur.
-      Aliquam eu felis ullamcorper, fringilla nibh quis, blandit ante. Phasellus egestas tortor at dolor aliquam rhoncus
-      vel quis ipsum. Maecenas accumsan tincidunt purus, eu tristique ipsum molestie nec. Cras ac aliquet justo. Quisque
-      dui lectus, ultricies sit amet imperdiet varius, placerat ut turpis. Aenean molestie dolor orci, sed tempus lorem
-      luctus et. Curabitur varius pharetra neque id porta. Duis hendrerit et massa eget consequat. In mollis diam quis
-      lectus tempus porttitor
-  </p>
-  <p class="comment">
-      [--> Morbi viverra lobortis purus, ac viverra augue lacinia non. Quisque fermentum consequat iaculis. ]
-  </p>
+      <p>Sed tempor blandit dolor. Praesent nec ligula eu risus viverra dapibus. Phasellus porta lectus eu magna lobortis,
+          vitae tincidunt quam pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+          Curae; Proin elit lectus, feugiat vel mauris vitae, elementum laoreet sapien. Phasellus est velit, tincidunt ut
+          sollicitudin at, consectetur eu lacus. Donec volutpat augue et arcu bibendum, id suscipit mauris consectetur.
+          Aliquam eu felis ullamcorper, fringilla nibh quis, blandit ante. Phasellus egestas tortor at dolor aliquam rhoncus
+          vel quis ipsum. Maecenas accumsan tincidunt purus, eu tristique ipsum molestie nec. Cras ac aliquet justo. Quisque
+          dui lectus, ultricies sit amet imperdiet varius, placerat ut turpis. Aenean molestie dolor orci, sed tempus lorem
+          luctus et. Curabitur varius pharetra neque id porta. Duis hendrerit et massa eget consequat. In mollis diam quis
+          lectus tempus porttitor
+      </p>
+  {% for item in comments %}
+      <p class="comment">[>> [{{ item.sequence }}]
+{{ item.msg }}
+  ::-{{ item.commenter }} <<]</p>
+  {% endfor %}
+  </div>
   <div id="terminal">
       <div class="overlay"></div>
   </div>
 
   <script src="/static/console.js"></script>
+  <script src="/static/login.js"></script>
   <script>
       window.onload = function() {
-        var ws = new WebSocket('ws://localhost:8080/pubsub')
+        var ws = new WebSocket('ws://' + location.host + '/pubsub')
         ws.onmessage = function(m) { queue_message(m.data) }
       }
   </script>

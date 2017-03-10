@@ -15,98 +15,41 @@
   <div id="console" class="hidden glow"></div>
   <div id="container">
   </div>
-  <div id="login-section" class="hidden">
-      <label for="username">Name</label>
-      <input id="username" type="text">
-      <label for="pword">Password</label>
-      <input id="pword" type="password">
-  </div>
-  <h3>{{ contact.title_name }} <div id="open-comment" class="btn header-btn">Add Comment</div></h3>
-  <div class="sketch">
-      <img class="headshot" src="/static/contacts/{{ contact.title_name }}.png">
-      <dl>
-          <dt class="glow">Name</dt>
-          <dd>{{ contact.name }}</dd>
-          <dt class="glow">Species</dt>
-          <dd>{{ contact.species }}</dd>
-          <dt class="glow">Alterations</dt>
-          <dd>{{ contact.alterations }}</dd>
-      </dl>
-      <div class="background">
-          {{ contact.background|safe }}
+  <div id="main-content">
+      <div id="login-section" class="hidden">
+          <label for="username">Name</label>
+          <input id="username" type="text">
+          <label for="pword">Password</label>
+          <input id="pword" type="password">
       </div>
-  </div>
+      <h3>{{ contact.title_name }} <div id="open-comment" class="btn header-btn">Add Comment</div></h3>
+      <div class="sketch">
+          <img class="headshot" src="/static/contacts/{{ contact.title_name }}.png">
+          <dl>
+              <dt class="glow">Name</dt>
+              <dd>{{ contact.name }}</dd>
+              <dt class="glow">Species</dt>
+              <dd>{{ contact.species }}</dd>
+              <dt class="glow">Alterations</dt>
+              <dd>{{ contact.alterations }}</dd>
+          </dl>
+          <div class="background">
+              {{ contact.background|safe }}
+          </div>
+      </div>
   {% for item in contact.comments %}
-  <p class="comment">[>> [{{ item.sequence }}]
+    <p class="comment">[>> [{{ item.sequence }}]
 {{ item.msg }}
   ::-{{ item.commenter }} <<]</p>
   {% endfor %}
+  </div>
   <div id="terminal">
       <div class="overlay"></div>
   </div>
 
   <script src="/static/console.js"></script>
+  <script src="/static/login.js"></script>
   <script>
-     /* login code */
-     var login_name_elem = document.getElementById('login-welcome')
-     var login_form = document.getElementById('login-section')
-
-     login_name_elem.addEventListener('click', function() {
-       login_name_elem.classList.add('hidden')
-       login_form.classList.remove('hidden')
-     })
-
-     document.getElementById('pword').addEventListener('keyup', function(ev) {
-       if (ev.which == 13) {
-         var n = document.getElementById('username').value
-         var p = document.getElementById('pword').value
-         post_login(n, p)
-       }
-     })
-
-     function post_verify() {
-        var xhr = new XMLHttpRequest()
-        xhr.open('POST', '/verify')
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            var t = JSON.parse(xhr.responseText)
-            if (t.username) {
-                login_name_elem.innerHTML = 'Welcome, ' + t.username
-                login_name_elem.classList.remove('hidden')
-            } else {
-                login_form.classList.remove('hidden')
-             }
-          }
-        }
-        xhr.send(null)
-     }
-
-      function post_login(name, pword) {
-        var data = {
-          username: name,
-          password: pword
-        }
-        var xhr = new XMLHttpRequest()
-        xhr.open('POST', '/login')
-        xhr.setRequestHeader('content-type', 'application/json')
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-             var t = JSON.parse(xhr.responseText)
-             if (t.result == 'success') {
-               login_form.classList.add('hidden')
-               login_name_elem.innerHTML = 'Welcome, ' + name
-               login_name_elem.classList.remove('hidden')
-             } else {
-               login_form.classList.remove('hidden')
-               login_name_elem.classList.add('hidden')
-             }
-          }
-        }
-        xhr.send( JSON.stringify(data) )
-      }
-
-      post_verify()
-
       /* comment code */
       var contact_key = document.getElementById('contact-key').value
       var comment_input = document.getElementById('comment-input')
