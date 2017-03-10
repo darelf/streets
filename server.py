@@ -23,6 +23,16 @@ async def index(request):
     return html(env.get_template('index.html').render(title="Street Scum"))
 
 
+@app.post('/verify')
+async def verify(request):
+    t = request.cookies.get('streetnode')
+    v = authorization.validate(bytes(t, encoding='utf-8'))
+    if v:
+        return json(v)
+    else:
+        return json({'result': 'failure'})
+
+
 @app.post('/login')
 async def login(request):
     username = request.json['username']
@@ -30,8 +40,7 @@ async def login(request):
     token = authorization.authorize(username, pword)
     if token:
         response = json({'result': 'success'})
-        response.cookies['streetnode'] = token
-        response.cookies['streetnode']['httponly'] = True
+        response.cookies['streetnode'] = token.decode('utf-8')
         return response
     else:
         return json({'result': 'failure'})
@@ -40,15 +49,15 @@ async def login(request):
 @app.post('/comment')
 async def comment(request):
     t = request.cookies.get('streetnode')
-    v = authorization.validate(t)
+    v = authorization.validate(bytes(t, encoding='utf-8'))
     if not v: return json({'result': 'failure'})
     data = request.json
     name = bytes(data['name'], 'utf-8')
     cseq = 0
     if 'msg' not in data:
         if 'sequence' in data: cseq = contacts.remove_comment(name, data['sequence'])
-    elif 'commenter' in data and 'msg' in data:
-        cseq = contacts.add_comment(bytes(data['name'], 'utf-8'), v['username'], data['msg'])
+    else:
+        cseq = contacts.add_comment(name, v['username'], data['msg'])
 
     if cseq > 0:
         return json({'result': 'success'})

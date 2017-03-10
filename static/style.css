@@ -215,3 +215,9 @@ dt {
   text-align: right;
 }
 
+input {
+  color: green;
+  background: transparent;
+  border: none;
+  outline: none;
+}
