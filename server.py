@@ -26,7 +26,8 @@ async def index(request):
 @app.post('/verify')
 async def verify(request):
     t = request.cookies.get('streetnode')
-    v = authorization.validate(bytes(t, encoding='utf-8'))
+    if isinstance(t, str): t = bytes(t, encoding='utf-8')
+    v = authorization.validate(t)
     if v:
         return json(v)
     else:
@@ -49,7 +50,8 @@ async def login(request):
 @app.post('/comment')
 async def comment(request):
     t = request.cookies.get('streetnode')
-    v = authorization.validate(bytes(t, encoding='utf-8'))
+    if isinstance(t, str): t = bytes(t, encoding='utf-8')
+    v = authorization.validate(t)
     if not v: return json({'result': 'failure'})
     data = request.json
     name = bytes(data['name'], 'utf-8')
