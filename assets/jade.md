@@ -1,3 +1,9 @@
+---
+title_name:  Jade
+name:        Jane Worth
+species:     Human
+alterations: Skilljack
+---
 
 Jade is a young woman who formerly worked as a stripper at the Syx Pynx, but now is peddling
 jazz on the streets. Essentially homeless, she is hopelessly addicted to BTLs, and seems

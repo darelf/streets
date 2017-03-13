@@ -1,4 +1,5 @@
 import plyvel, time, json, markdown, os
+from glob import glob
 
 class Contacts:
     def __init__(self):
@@ -12,7 +13,7 @@ class Contacts:
             if os.path.isfile(path):
                 with open(path, 'r') as myfile:
                     text = myfile.read()
-                    c['background'] = markdown.markdown(text, output_format='html5')
+                    c['background'] = markdown.markdown(text, output_format='html5', extensions=['markdown.extensions.meta'])
             return c
         else:
             return None
@@ -27,7 +28,10 @@ class Contacts:
                 'msg': msg,
                 'sequence': s
             }
-            c['comments'].append(comment)
+            if 'comments' in c:
+                c['comments'].append(comment)
+            else:
+                c['comments'] = [comment]
             self.db.put(name, bytes(json.dumps(c), 'utf-8'))
             return s
         return 0
@@ -45,19 +49,32 @@ class Contacts:
             return sequence
         return 0
 
-    def initialize(self):
-        jade = {
-            'title_name': 'Jade',
-            'name': 'Jane Worth',
-            'species': 'Human',
-            'alterations': 'Skilljack',
-            'comments': [{'commenter':'club0',
-                          'sequence': time.time(),
-                          'msg': 'Jade is a real party girl. Best source for Jazz in south Redmond. Never overcharges, and always has quality goods.'
-                          }]
-        }
+    def add_contact(self, key, c):
+        self.db.put(key, bytes(json.dumps(c), 'utf-8'))
 
+    def parse_contact(self, fname):
+        md = markdown.Markdown(output_format='html5', extensions=['markdown.extensions.meta'])
+        with open(fname, 'r') as myfile:
+            text = myfile.read()
+            md.convert(text)
+
+        meta = md.Meta
+        c = {
+            'title_name': ''.join(meta['title_name']),
+            'name': ''.join(meta['name']),
+            'species': ''.join(meta['species']),
+            'alterations': ''.join(meta['alterations'])
+        }
+        return c
+
+    def initialize(self):
         self.db = plyvel.DB('contactDB', create_if_missing=True)
-        item = self.db.get(b'jade')
-        if not item:
-            self.db.put(b'jade', bytes(json.dumps(jade), 'utf-8'))
+        print("calling initialize")
+        for x in glob('assets/*.md'):
+            print("looking for", x)
+            key = os.path.basename(x).split('.')[0]
+            if isinstance(key, str): key = bytes(key, encoding='utf8')
+            item = self.db.get(key)
+            if not item:
+                c = self.parse_contact(x)
+                self.db.put(key, bytes(json.dumps(c), 'utf-8'))
