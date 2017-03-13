@@ -54,6 +54,11 @@ document.addEventListener('keyup', function(ev) {
   if (ev.keyCode == 27) close_console()
 })
 
-
 document.getElementById('main-content').addEventListener('click', close_console)
 
+window.onload = function() {
+  var p = 'ws://'
+  if (location.protocal === 'https') p = 'wss://'
+  var ws = new WebSocket(p + location.host + '/pubsub')
+  ws.onmessage = function(m) { queue_message(m.data) }
+}

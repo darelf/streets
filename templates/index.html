@@ -46,12 +46,6 @@
   <script src="/static/console.js"></script>
   <script src="/static/login.js"></script>
   <script>
-      window.onload = function() {
-        var p = 'ws://'
-        if (location.protocal === 'https') p = 'wss://'
-        var ws = new WebSocket(p + location.host + '/pubsub')
-        ws.onmessage = function(m) { queue_message(m.data) }
-      }
   </script>
 </body>
 </html>
