@@ -76,5 +76,8 @@ class Contacts:
             if isinstance(key, str): key = bytes(key, encoding='utf8')
             item = self.db.get(key)
             if not item:
+                print("adding", x)
                 c = self.parse_contact(x)
                 self.db.put(key, bytes(json.dumps(c), 'utf-8'))
+            else:
+                print("already have", x)
