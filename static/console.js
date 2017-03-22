@@ -58,7 +58,7 @@ document.getElementById('main-content').addEventListener('click', close_console)
 
 window.onload = function() {
   var p = 'ws://'
-  if (location.protocal === 'https') p = 'wss://'
+  if (location.protocol === 'https:') p = 'wss://'
   var ws = new WebSocket(p + location.host + '/pubsub')
   ws.onmessage = function(m) { queue_message(m.data) }
 }
