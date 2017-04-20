@@ -81,3 +81,4 @@ class Contacts:
                 self.db.put(key, bytes(json.dumps(c), 'utf-8'))
             else:
                 print("already have", x)
+                
