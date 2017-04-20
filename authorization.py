@@ -1,8 +1,11 @@
-import jwt, datetime, json
+import jwt, datetime, json, os
 
-config = None
-with open('config.json') as f:
-    config = json.load(f)
+config = {}
+config['secret_key'] = os.environ['STREETS_SECRET_KEY']
+config['simple_password'] = os.environ['STREETS_SIMPLE_PASSWORD']
+if not config['secret_key']:
+    with open('config.json') as f:
+        config = json.load(f)
 
 
 def create_token(name):
