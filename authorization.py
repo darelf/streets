@@ -1,9 +1,11 @@
 import jwt, datetime, json, os
 
 config = {}
-config['secret_key'] = os.environ['STREETS_SECRET_KEY']
-config['simple_password'] = os.environ['STREETS_SIMPLE_PASSWORD']
-if not config['secret_key']:
+if 'STREETS_SECRET_KEY' in os.environ:
+    config['secret_key'] = os.environ['STREETS_SECRET_KEY']
+if 'STREETS_SIMPLE_PASSWORD' in os.environ:
+    config['simple_password'] = os.environ['STREETS_SIMPLE_PASSWORD']
+if not 'secret_key' in config:
     with open('config.json') as f:
         config = json.load(f)
 
