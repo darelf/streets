@@ -23,6 +23,12 @@
           <a href="/contact/jade">link</a> to some NPC information page(s). Or even location or other data pages.
       </p>
 
+      <ul>
+      {% for item in contacts %}
+        <li>{{ item.title_name }}</li>
+      {% endfor %}
+      </ul>
+
       <p>Sed tempor blandit dolor. Praesent nec ligula eu risus viverra dapibus. Phasellus porta lectus eu magna lobortis,
           vitae tincidunt quam pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
           Curae; Proin elit lectus, feugiat vel mauris vitae, elementum laoreet sapien. Phasellus est velit, tincidunt ut

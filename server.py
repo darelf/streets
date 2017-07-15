@@ -20,7 +20,8 @@ app.static('/favicon.ico', './static/favicon.ico')
 
 @app.get('/')
 async def index(request):
-    return html(env.get_template('index.html').render(title="Street Scum"))
+    contact_list = contacts.get_contact_list()
+    return html(env.get_template('index.html').render(title="Street Scum", contacts=contact_list))
 
 
 @app.post('/verify')

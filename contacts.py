@@ -18,6 +18,13 @@ class Contacts:
         else:
             return None
 
+    def get_contact_list(self):
+        contact_list = []
+        for key, value in self.db:
+            c = json.loads(value)
+            contact_list.append(c)
+        return contact_list
+
     def add_comment(self, name, commenter, msg):
         item = self.db.get(name)
         if item:
