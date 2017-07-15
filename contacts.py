@@ -67,6 +67,7 @@ class Contacts:
 
         meta = md.Meta
         c = {
+            'link': ''.join(meta['link']),
             'title_name': ''.join(meta['title_name']),
             'name': ''.join(meta['name']),
             'species': ''.join(meta['species']),

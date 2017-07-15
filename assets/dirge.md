@@ -1,4 +1,5 @@
 ---
+link:        dirge
 title_name:  Dirge
 name:        Dr. Timothy Limenites
 species:     Human

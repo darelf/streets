@@ -1,4 +1,5 @@
 ---
+link:        mal
 title_name:  Mal
 name:        Melanie Hargrave
 species:     Elf
