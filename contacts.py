@@ -1,6 +1,7 @@
 import plyvel, time, json, markdown, os
 from glob import glob
 
+
 class Contacts:
     def __init__(self):
         self.db = None
@@ -89,4 +90,4 @@ class Contacts:
                 self.db.put(key, bytes(json.dumps(c), 'utf-8'))
             else:
                 print("already have", x)
-                
+

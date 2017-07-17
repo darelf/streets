@@ -78,15 +78,6 @@ async def contact(request, name):
         return html(env.get_template('index.html').render(title="Street Scum"))
 
 
-@app.post('/addcontact/<key>')
-async def addcontact(request, key):
-    v = request.json
-    k = key
-    if isinstance(k, str): k = bytes(k, encoding='utf-8')
-    contacts.add_contact(k, v)
-    return json({'result': 'success'})
-
-
 def run():
     app.run("0.0.0.0", port=8888)
 

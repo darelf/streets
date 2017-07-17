@@ -18,27 +18,26 @@
           <input id="pword" type="password">
       </div>
       <h3>News Feed</h3>
-      <p>
-          This would be a news item. Maybe notes from an ongoing campaign. It would probably
-          <a href="/contact/jade">link</a> to some NPC information page(s). Or even location or other data pages.
-      </p>
-
+      <p>Currently just a list of NPC writeups.</p>
       <ul>
       {% for item in contacts %}
           <li><a href="/contact/{{ item.link }}">{{ item.title_name }}</a></li>
       {% endfor %}
       </ul>
 
-      <p>Sed tempor blandit dolor. Praesent nec ligula eu risus viverra dapibus. Phasellus porta lectus eu magna lobortis,
-          vitae tincidunt quam pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-          Curae; Proin elit lectus, feugiat vel mauris vitae, elementum laoreet sapien. Phasellus est velit, tincidunt ut
-          sollicitudin at, consectetur eu lacus. Donec volutpat augue et arcu bibendum, id suscipit mauris consectetur.
-          Aliquam eu felis ullamcorper, fringilla nibh quis, blandit ante. Phasellus egestas tortor at dolor aliquam rhoncus
-          vel quis ipsum. Maecenas accumsan tincidunt purus, eu tristique ipsum molestie nec. Cras ac aliquet justo. Quisque
-          dui lectus, ultricies sit amet imperdiet varius, placerat ut turpis. Aenean molestie dolor orci, sed tempus lorem
-          luctus et. Curabitur varius pharetra neque id porta. Duis hendrerit et massa eget consequat. In mollis diam quis
-          lectus tempus porttitor
+      <h3>Campaign Description</h3>
+      <h4>Building Characters</h4>
+      <p> Core book, Run and Gun, Run Faster and Street Grimoire.</p>
+      <p>The player characters are "street scum" level (page 354), cannot buy contacts during character creation,
+          start with a single contact (3 loyalty, 5 connection), Hartford, who is a fixer with ties to organized crime.
+          No Mystic Adept, No Aspected Magician. Magicians must use C,C,D,D,E for priorities. Adepts and Technomancers
+          can use either C,C,D,D,E or B,C,D,E,E for priorities. Remember to use the "Street-Level Play" section for
+          resources, karma, gear restrictions and nuyen restrictions on page 64.
       </p>
+      <p>No PC is from Seattle or environs. Backstory needs a reasonable explanation for why they were removed from
+      regular society and ended up being relocated by Hartford. Hartford needed a new shadowrun crew and picked these
+      particular individuals because they were desparate and, while not very experienced, have much potential.</p>
+      <p></p>
   {% for item in comments %}
       <p class="comment">[>> [{{ item.sequence }}]
 {{ item.msg }}
