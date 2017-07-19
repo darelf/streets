@@ -1,0 +1,11 @@
+aiofiles==0.3.1
+httptools==0.0.9
+Jinja2==2.9.6
+Markdown==2.6.8
+MarkupSafe==1.0
+plyvel==0.9
+PyJWT==1.5.2
+sanic==0.5.4
+ujson==1.35
+uvloop==0.8.0
+websockets==3.3
