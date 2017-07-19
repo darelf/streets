@@ -14,6 +14,19 @@ body {
   display: none;
 }
 
+#login-welcome {
+  float: left;
+}
+
+#logo {
+  border: none;
+  float: right;
+}
+
+#main-content {
+  margin-top: 3em;
+}
+
 #console {
   position: absolute;
   top: 20px;

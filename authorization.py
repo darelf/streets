@@ -18,6 +18,7 @@ def create_token(name):
         'exp': int(d.timestamp()),
         'iss': 'streetnode.dikaion.us'
     }
+
     return jwt.encode(data, config['secret_key'], algorithm='HS512')
 
 
