@@ -1,6 +1,7 @@
 from sanic import Sanic
 from sanic.response import html, json, text
 from contacts import Contacts
+from missions import Missions
 import authorization
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -11,6 +12,9 @@ env = Environment(
 
 contacts = Contacts()
 contacts.initialize()
+
+missions = Missions()
+missions.initialize()
 
 app = Sanic()
 
@@ -73,6 +77,16 @@ async def contact(request, name):
     c = contacts.get_contact(bytes(name,'utf-8'))
     if c:
         return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name))
+    else:
+        # Need a 404 here
+        return html(env.get_template('index.html').render(title="Street Scum"))
+
+
+@app.get('/mission/<name>')
+async def mission(request, name):
+    c = missions.get_mission(bytes(name,'utf-8'))
+    if c:
+        return html(env.get_template('mission.html').render(title="Street Scum", mission=c, key=name))
     else:
         # Need a 404 here
         return html(env.get_template('index.html').render(title="Street Scum"))

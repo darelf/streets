@@ -2,15 +2,15 @@ import plyvel, time, json, markdown, os
 from glob import glob
 
 
-class Contacts:
+class Missions:
     def __init__(self):
         self.db = None
 
-    def get_contact(self, name):
+    def get_mission(self, name):
         item = self.db.get(name)
         if item:
             c = json.loads(item)
-            path = 'assets/contacts/' + name.decode() + '.md'
+            path = 'assets/missions/' + name.decode() + '.md'
             if os.path.isfile(path):
                 with open(path, 'r') as myfile:
                     text = myfile.read()
@@ -19,12 +19,12 @@ class Contacts:
         else:
             return None
 
-    def get_contact_list(self):
-        contact_list = []
+    def get_mission_list(self):
+        mission_list = []
         for key, value in self.db:
             c = json.loads(value)
-            contact_list.append(c)
-        return contact_list
+            mission_list.append(c)
+        return mission_list
 
     def add_comment(self, name, commenter, msg):
         item = self.db.get(name)
@@ -57,10 +57,10 @@ class Contacts:
             return sequence
         return 0
 
-    def add_contact(self, key, c):
+    def add_mission(self, key, c):
         self.db.put(key, bytes(json.dumps(c), 'utf-8'))
 
-    def parse_contact(self, fname):
+    def parse_mission(self, fname):
         md = markdown.Markdown(output_format='html5', extensions=['markdown.extensions.meta'])
         with open(fname, 'r') as myfile:
             text = myfile.read()
@@ -69,24 +69,25 @@ class Contacts:
         meta = md.Meta
         c = {
             'link': ''.join(meta['link']),
-            'title_name': ''.join(meta['title_name']),
-            'name': ''.join(meta['name']),
-            'species': ''.join(meta['species']),
-            'alterations': ''.join(meta['alterations'])
+            'title': ''.join(meta['title']),
+            'image': ''.join(meta['image']),
+            'johnson_name': ''.join(meta['johnson_name']),
+            'johnson': ''.join(meta['johnson']),
+            'offer': ''.join(meta['offer'])
         }
         return c
 
     def initialize(self):
-        self.db = plyvel.DB('contactDB', create_if_missing=True)
-        print("calling initialize")
-        for x in glob('assets/contacts/*.md'):
+        self.db = plyvel.DB('missionDB', create_if_missing=True)
+        print("calling initialize for missions")
+        for x in glob('assets/missions/*.md'):
             print("looking for", x)
             key = os.path.basename(x).split('.')[0]
             if isinstance(key, str): key = bytes(key, encoding='utf8')
             item = self.db.get(key)
             if not item:
                 print("adding", x)
-                c = self.parse_contact(x)
+                c = self.parse_mission(x)
                 self.db.put(key, bytes(json.dumps(c), 'utf-8'))
             else:
                 print("already have", x)

@@ -222,6 +222,7 @@ a:hover {
 img.headshot {
   float: left;
   margin-right: 20px;
+  margin-bottom: 5px;
   padding-right: 10px;
   border-right-width: 3px;
   border-right-style: solid;
@@ -235,7 +236,7 @@ dt {
   font-weight: bold;
   float: left;
   clear: right;
-  width: 120px;
+  width: 150px;
   padding-right: 20px;
   text-align: right;
 }
