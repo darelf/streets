@@ -92,8 +92,8 @@ async def mission(request, name):
         return html(env.get_template('index.html').render(title="Street Scum"))
 
 
-def run():
-    app.run("0.0.0.0", port=8888)
+def run(p=8888):
+    app.run("0.0.0.0", port=p)
 
 if __name__ == '__main__':
     run()
