@@ -1,5 +1,5 @@
 from sanic import Sanic
-from sanic.response import html, json, text
+from sanic.response import html, json, redirect
 from contacts import Contacts
 from missions import Missions
 import authorization
@@ -79,7 +79,7 @@ async def contact(request, name):
         return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name))
     else:
         # Need a 404 here
-        return html(env.get_template('index.html').render(title="Street Scum"))
+        return redirect('/')
 
 
 @app.get('/mission/<name>')
@@ -89,7 +89,7 @@ async def mission(request, name):
         return html(env.get_template('mission.html').render(title="Street Scum", mission=c, key=name))
     else:
         # Need a 404 here
-        return html(env.get_template('index.html').render(title="Street Scum"))
+        return redirect('/')
 
 
 def run(p=8888):
