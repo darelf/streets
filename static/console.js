@@ -2,6 +2,7 @@ var con = document.getElementById('console')
 var current_console_items = []
 var queued_items = []
 var is_typing = false
+var ws = null
 
 function type_line(tlen, text, target, timing) {
   var txt = text.substr(0, tlen++)
@@ -46,12 +47,22 @@ function show_message(msg) {
   type_line(exist_msg.length, full_msg, con, 100)
 }
 
+function send_message(msg) {
+  ws.send(msg)
+}
+
 function close_console() {
   con.classList.add('hidden')
 }
 
 document.addEventListener('keyup', function(ev) {
-  if (ev.keyCode == 27) close_console()
+  if (ev.keyCode == 27) {
+    if (con.classList.contains('hidden')) {
+      con.classList.remove('hidden')
+    } else {
+      close_console()
+    }
+  }
 })
 
 document.getElementById('main-content').addEventListener('click', close_console)
@@ -59,6 +70,6 @@ document.getElementById('main-content').addEventListener('click', close_console)
 window.onload = function() {
   var p = 'ws://'
   if (location.protocol === 'https:') p = 'wss://'
-  var ws = new WebSocket(p + location.host + '/pubsub')
+  ws = new WebSocket(p + location.host + '/pubsub')
   ws.onmessage = function(m) { queue_message(m.data) }
 }
