@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="comment-wrapper" class="hidden">
+      <input id="contact-key" type="hidden" value="{{ key }}">
+      <textarea id="comment-input"></textarea>
+      <div id="comment-btn" class="btn">Submit Comment</div> | <div id="comment-cancel" class="btn">Cancel</div>
+  </div>
+  <div id="login-welcome" class="glow hidden"></div>
+  <a href="/"><img src="/static/srrIcon_hi-res.png" height="30" id="logo" title="cd /"></img></a>
+  <div id="console" class="hidden glow"></div>
+  <div id="container">
+  </div>
+  <div id="main-content">
+      <div id="login-section" class="hidden">
+          <label for="username">Name</label>
+          <input id="username" type="text">
+          <label for="pword">Password</label>
+          <input id="pword" type="password">
+      </div>

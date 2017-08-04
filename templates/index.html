@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-  <div id="console" class="hidden glow"></div>
-  <div id="login-welcome" class="glow hidden"></div>
-  <div id="container">
-  </div>
-  <div id="main-content">
-      <div id="login-section" class="hidden">
-          <label for="username">Name</label>
-          <input id="username" type="text">
-          <label for="pword">Password</label>
-          <input id="pword" type="password">
-      </div>
+{% include 'header.html' %}
       <h3>News Feed</h3>
       <p>Currently just a list of NPC writeups.</p>
       <ul>
@@ -51,20 +33,10 @@
       <p>
           Once "on the ground" the campaign opens with a first run: intercept a shipment of ammunition headed for
           one of the local gangs.
-       </p>
-  {% for item in comments %}
+       </p>  {% for item in comments %}
       <p class="comment">[>> [{{ item.sequence }}]
 {{ item.msg }}
   ::-{{ item.commenter }} <<]</p>
   {% endfor %}
   </div>
-  <div id="terminal">
-      <div class="overlay"></div>
-  </div>
-
-  <script src="/static/console.js"></script>
-  <script src="/static/login.js"></script>
-  <script>
-  </script>
-</body>
-</html>
+{% include 'footer.html' %}

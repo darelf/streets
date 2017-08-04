@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-  <div id="comment-wrapper" class="hidden">
-      <input id="contact-key" type="hidden" value="{{ key }}">
-      <textarea id="comment-input"></textarea>
-      <div id="comment-btn" class="btn">Submit Comment</div> | <div id="comment-cancel" class="btn">Cancel</div>
-  </div>
-  <div id="login-welcome" class="glow hidden"></div>
-  <a href="/"><img src="/static/srrIcon_hi-res.png" height="30" id="logo" title="cd /"></img></a>
-  <div id="console" class="hidden glow"></div>
-  <div id="container">
-  </div>
-  <div id="main-content">
-      <div id="login-section" class="hidden">
-          <label for="username">Name</label>
-          <input id="username" type="text">
-          <label for="pword">Password</label>
-          <input id="pword" type="password">
-      </div>
+{% include 'header.html' %}
       <h3>{{ contact.title_name }} <div id="open-comment" class="btn header-btn">Add Comment</div></h3>
       <div class="sketch">
           <img class="headshot" src="/static/contacts/{{ contact.title_name }}.png">
@@ -44,47 +20,4 @@
   ::-{{ item.commenter }} <<]</p>
   {% endfor %}
   </div>
-  <div id="terminal">
-      <div class="overlay"></div>
-  </div>
-
-  <script src="/static/console.js"></script>
-  <script src="/static/login.js"></script>
-  <script>
-      /* comment code */
-      var contact_key = document.getElementById('contact-key').value
-      var comment_input = document.getElementById('comment-input')
-      var comment_wrap = document.getElementById('comment-wrapper')
-      document.getElementById('open-comment').addEventListener('click', function() {
-        comment_wrap.classList.remove('hidden')
-      })
-
-      document.getElementById('comment-btn').addEventListener('click', function() {
-        var txt = document.getElementById('comment-input').value
-        post_comment(contact_key, txt)
-      })
-
-      document.getElementById('comment-cancel').addEventListener('click', function() {
-        comment_wrap.classList.add('hidden')
-        comment_input.value = ''
-      })
-
-      function post_comment(contact_name, text) {
-        var data = {
-          name: contact_name,
-          msg: text
-        }
-        var xhr = new XMLHttpRequest()
-        xhr.open('POST', '/comment')
-        xhr.setRequestHeader('content-type', 'application/json')
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            comment_wrap.classList.add('hidden')
-            location.reload()
-          }
-        }
-        xhr.send( JSON.stringify(data) )
-      }
-  </script>
-</body>
-</html>
+{% include 'footer.html' %}
