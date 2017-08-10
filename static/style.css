@@ -31,9 +31,9 @@ body {
 
 #console {
   position: absolute;
-  top: 20px;
+  bottom: 20px;
   left: 20px;
-  width: 40%;
+  right: 20px;
   height: 10em;
   z-index: 3000;
   background-color: rgba(0,0,0,0.9);
