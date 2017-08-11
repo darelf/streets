@@ -61,10 +61,12 @@ async def comment(request):
     data = request.json
     name = bytes(data['name'], 'utf-8')
     cseq = 0
+    dbt = contacts
+    if data['type'] == 'mission': dbt = missions
     if 'msg' not in data:
-        if 'sequence' in data: cseq = contacts.remove_comment(name, data['sequence'])
+        if 'sequence' in data: cseq = dbt.remove_comment(name, data['sequence'])
     else:
-        cseq = contacts.add_comment(name, v['username'], data['msg'])
+        cseq = dbt.add_comment(name, v['username'], data['msg'])
 
     if cseq > 0:
         return json({'result': 'success'})
@@ -76,7 +78,7 @@ async def comment(request):
 async def contact(request, name):
     c = contacts.get_contact(bytes(name,'utf-8'))
     if c:
-        return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name))
+        return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name, key_type='contact'))
     else:
         # Need a 404 here
         return redirect('/')
@@ -86,7 +88,7 @@ async def contact(request, name):
 async def mission(request, name):
     c = missions.get_mission(bytes(name,'utf-8'))
     if c:
-        return html(env.get_template('mission.html').render(title="Street Scum", mission=c, key=name))
+        return html(env.get_template('mission.html').render(title="Street Scum", mission=c, key=name, key_type='mission'))
     else:
         # Need a 404 here
         return redirect('/')

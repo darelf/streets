@@ -19,11 +19,12 @@ class Contacts:
         else:
             return None
 
-    def get_contact_list(self):
+    def get_contact_list(self, k=None):
         contact_list = []
         for key, value in self.db:
-            c = json.loads(value)
-            contact_list.append(c)
+            if (k and key.startswith(k)) or not k:
+                c = json.loads(value)
+                contact_list.append(c)
         return contact_list
 
     def add_comment(self, name, commenter, msg):

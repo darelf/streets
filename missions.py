@@ -19,11 +19,12 @@ class Missions:
         else:
             return None
 
-    def get_mission_list(self):
+    def get_mission_list(self, k=None):
         mission_list = []
         for key, value in self.db:
-            c = json.loads(value)
-            mission_list.append(c)
+            if (k and key.startswith(k)) or not k:
+                c = json.loads(value)
+                mission_list.append(c)
         return mission_list
 
     def add_comment(self, name, commenter, msg):
