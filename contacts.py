@@ -22,7 +22,7 @@ class Contacts:
     def get_contact_list(self, k=None):
         contact_list = []
         for key, value in self.db:
-            if (k and key.startswith(k)) or not k:
+            if (k and key.startswith(bytes(k, 'utf-8'))) or not k:
                 c = json.loads(value)
                 contact_list.append(c)
         return contact_list

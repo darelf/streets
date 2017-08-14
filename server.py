@@ -95,6 +95,15 @@ async def mission(request, name):
         return redirect('/')
 
 
+@app.get('/list/<txt>')
+async def list_contacts(request, txt):
+    c = contacts.get_contact_list(txt)
+    if c:
+        return json(c)
+    else:
+        return ({'result': 'failure'})
+
+
 def run(p=8888):
     app.run("0.0.0.0", port=p)
 

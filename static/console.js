@@ -68,6 +68,11 @@ document.addEventListener('keyup', function(ev) {
 document.getElementById('main-content').addEventListener('click', close_console)
 
 window.onload = function() {
+  var first = sessionStorage.first_message
+  if (!first) {
+    queue_message('Welcome to StreetNode.  Press ESC to toggle this console.')
+    sessionStorage.first_message = "true"
+  }
   var p = 'ws://'
   if (location.protocol === 'https:') p = 'wss://'
   ws = new WebSocket(p + location.host + '/pubsub')

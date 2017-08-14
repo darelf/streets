@@ -1,6 +1,7 @@
 {% include 'header.html' %}
       <h3>News Feed</h3>
-      <input id="contact_search"></input>
+      <input id="contact_search" placeholder="Search Contacts"></input>
+      <ul id="contact-listing"></ul>
 <!--
       <p>Currently just a list of NPC writeups.</p>
       <ul>
@@ -33,8 +34,8 @@
           Whether any or all of these player characters know one another is up to you.
       </p>
       <p>
-          Once "on the ground" the campaign opens with a first run: intercept a shipment of ammunition headed for
-          one of the local gangs.
+          Once "on the ground" the campaign opens with a first run: <a href="/mission/ammo-intercept">intercept</a>
+          a shipment of ammunition headed for one of the local gangs.
        </p>  {% for item in comments %}
       <p class="comment">[>> [{{ item.sequence }}]
 {{ item.msg }}
@@ -44,7 +45,23 @@
 <script>
     document.getElementById('contact_search').addEventListener('keyup', function(ev) {
         var txt = this.value
+        if (txt.length > 0) {
 
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET', '/list/' + txt)
+
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                var list = JSON.parse(xhr.responseText)
+                var h = ''
+                list.forEach(function(v,i,a) {
+                    h += '<li><a href="/contact/' + v.link + '">' + v.title_name + '</a></li>'
+                })
+                document.getElementById("contact-listing").innerHTML = h
+              }
+            }
+            xhr.send()
+        }
     })
 </script>
 {% include 'footer.html' %}
