@@ -61,8 +61,9 @@ async def comment(request):
     data = request.json
     name = bytes(data['name'], 'utf-8')
     cseq = 0
+    type = data.get('type', 'contacts')
     dbt = contacts
-    if data['type'] == 'mission': dbt = missions
+    if type == 'mission': dbt = missions
     if 'msg' not in data:
         if 'sequence' in data: cseq = dbt.remove_comment(name, data['sequence'])
     else:

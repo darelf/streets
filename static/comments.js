@@ -12,7 +12,8 @@ if (document.getElementById('open-comment')) {
 if (document.getElementById('comment-btn')) {
   document.getElementById('comment-btn').addEventListener('click', function() {
     var txt = document.getElementById('comment-input').value
-    post_comment(contact_key, txt)
+    var type = document.getElementById('contact-type').value
+    post_comment(type, contact_key, txt)
   })
 }
 
