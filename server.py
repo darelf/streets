@@ -85,6 +85,16 @@ async def contact(request, name):
         return redirect('/')
 
 
+@app.get('/team/<name>')
+async def team(request, name):
+    c = contacts.get_contact(bytes(name,'utf-8'))
+    if c:
+        return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name, key_type='contact'))
+    else:
+        # Need a 404 here
+        return redirect('/')
+
+
 @app.get('/mission/<name>')
 async def mission(request, name):
     c = missions.get_mission(bytes(name,'utf-8'))
