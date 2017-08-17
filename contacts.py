@@ -68,7 +68,7 @@ class Contacts:
     def add_contact(self, key, c):
         self.db.put(key, bytes(json.dumps(c), 'utf-8'))
 
-    def parse_contact(self, fname):
+    def parse_contact(self, fname, base_dir):
         md = markdown.Markdown(output_format='html5', extensions=['markdown.extensions.meta'])
         with open(fname, 'r') as myfile:
             text = myfile.read()
@@ -80,18 +80,19 @@ class Contacts:
             'title_name': ''.join(meta['title_name']),
             'name': ''.join(meta['name']),
             'species': ''.join(meta['species']),
-            'alterations': ''.join(meta['alterations'])
+            'alterations': ''.join(meta['alterations']),
+            'base_dir': base_dir
         }
         return c
 
-    def load_contact(self, fname):
+    def load_contact(self, fname, base_dir):
         print("looking for", fname)
         key = os.path.basename(fname).split('.')[0]
         if isinstance(key, str): key = bytes(key, encoding='utf8')
         item = self.db.get(key)
         if not item:
             print("adding", fname)
-            c = self.parse_contact(fname)
+            c = self.parse_contact(fname, base_dir)
             self.db.put(key, bytes(json.dumps(c), 'utf-8'))
         else:
             print("already have", fname)
@@ -100,8 +101,8 @@ class Contacts:
         self.db = plyvel.DB('contactDB', create_if_missing=True)
         print("calling initialize")
         for x in glob('assets/contacts/*.md'):
-            self.load_contact(x)
+            self.load_contact(x, 'contacts')
 
         for x in glob('assets/team/*.md'):
-            self.load_contact(x)
+            self.load_contact(x, 'team')
 
