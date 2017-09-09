@@ -1,7 +1,6 @@
 from sanic import Sanic
 from sanic.response import html, json, redirect
-from contacts import Contacts
-from missions import Missions
+from archive import Archive
 import authorization
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -10,11 +9,14 @@ env = Environment(
     autoescape=select_autoescape(['html'])
 )
 
-contacts = Contacts()
-contacts.initialize()
+archive = Archive()
+archive.initialize()
 
-missions = Missions()
-missions.initialize()
+#contacts = Contacts()
+#contacts.initialize()
+
+#missions = Missions()
+#missions.initialize()
 
 app = Sanic()
 
@@ -24,7 +26,7 @@ app.static('/favicon.ico', './static/favicon.ico')
 
 @app.get('/')
 async def index(request):
-    contact_list = contacts.get_contact_list()
+    contact_list = archive.get_item_list('contact')
     return html(env.get_template('index.html').render(title="Street Scum", contacts=contact_list))
 
 
@@ -61,13 +63,11 @@ async def comment(request):
     data = request.json
     name = bytes(data['name'], 'utf-8')
     cseq = 0
-    type = data.get('type', 'contacts')
-    dbt = contacts
-    if type == 'mission': dbt = missions
+    type = data.get('type', 'contact')
     if 'msg' not in data:
-        if 'sequence' in data: cseq = dbt.remove_comment(name, data['sequence'])
+        if 'sequence' in data: cseq = archive.remove_comment(type, name, data['sequence'])
     else:
-        cseq = dbt.add_comment(name, v['username'], data['msg'])
+        cseq = archive.add_comment(type, name, v['username'], data['msg'])
 
     if cseq > 0:
         return json({'result': 'success'})
@@ -77,7 +77,7 @@ async def comment(request):
 
 @app.get('/contact/<name>')
 async def contact(request, name):
-    c = contacts.get_contact(bytes(name,'utf-8'))
+    c = archive.get_item('contact', bytes(name, 'utf-8'))
     if c:
         return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name, key_type='contact'))
     else:
@@ -87,7 +87,7 @@ async def contact(request, name):
 
 @app.get('/team/<name>')
 async def team(request, name):
-    c = contacts.get_contact(bytes(name,'utf-8'))
+    c = archive.get_item('team', bytes(name, 'utf-8'))
     if c:
         return html(env.get_template('contact.html').render(title="Street Scum", contact=c, key=name, key_type='contact'))
     else:
@@ -97,7 +97,7 @@ async def team(request, name):
 
 @app.get('/mission/<name>')
 async def mission(request, name):
-    c = missions.get_mission(bytes(name,'utf-8'))
+    c = archive.get_item('mission', bytes(name, 'utf-8'))
     if c:
         return html(env.get_template('mission.html').render(title="Street Scum", mission=c, key=name, key_type='mission'))
     else:
@@ -107,7 +107,7 @@ async def mission(request, name):
 
 @app.get('/list/<txt>')
 async def list_contacts(request, txt):
-    c = contacts.get_contact_list(txt)
+    c = archive.get_item_list('contact', txt)
     if c:
         return json(c)
     else:

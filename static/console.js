@@ -1,4 +1,5 @@
 var con = document.getElementById('console')
+var console_is_open = false
 var current_console_items = []
 var queued_items = []
 var is_typing = false
@@ -37,7 +38,7 @@ function show_message(msg) {
     current_console_items.shift()
     redraw = true
   }
-  con.classList.remove('hidden')
+  open_console()
   if (redraw) {
     var exist_arr = current_console_items.slice(0,5)
     exist_msg = exist_arr.join('\n')
@@ -53,12 +54,18 @@ function send_message(msg) {
 
 function close_console() {
   con.classList.add('hidden')
+  console_is_open = false
+}
+
+function open_console() {
+  con.classList.remove('hidden')
+  console_is_open = true
 }
 
 document.addEventListener('keyup', function(ev) {
   if (ev.keyCode == 27) {
     if (con.classList.contains('hidden')) {
-      con.classList.remove('hidden')
+       open_console()
     } else {
       close_console()
     }
