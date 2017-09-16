@@ -6,5 +6,6 @@ species:     Elf
 alterations: Control Rig
 ---
 
-Adon has recently moved from the Seattle area from Portland. (Why?)
+Adon has recently moved to the Seattle area from Portland (Why?)
+with his girlfriend.
 
