@@ -12,12 +12,6 @@ env = Environment(
 archive = Archive()
 archive.initialize()
 
-#contacts = Contacts()
-#contacts.initialize()
-
-#missions = Missions()
-#missions.initialize()
-
 app = Sanic()
 
 app.static('/static/', './static/', use_content_range=True, stream_large_files=True)
