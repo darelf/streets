@@ -20,7 +20,7 @@ archive.initialize()
 
 app = Sanic()
 
-app.static('/static/', './static/')
+app.static('/static/', './static/', use_content_range=True, stream_large_files=True)
 app.static('/favicon.ico', './static/favicon.ico')
 
 
