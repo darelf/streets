@@ -7,5 +7,5 @@ plyvel==0.9
 PyJWT==1.5.2
 sanic==0.6.0
 ujson==1.35
-uvloop==0.8.0
-websockets==3.3
+uvloop==0.8.1
+websockets==3.4
