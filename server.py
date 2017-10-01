@@ -105,7 +105,7 @@ async def list_contacts(request, txt):
     if c:
         return json(c)
     else:
-        return json({'result': 'failure'})
+        return json([])
 
 
 def run(p=8888):
