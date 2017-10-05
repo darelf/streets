@@ -1,0 +1,19 @@
+{% include 'header.html' %}
+      <h3>{{ archive.title }} <div id="open-comment" class="btn header-btn">Add Comment</div></h3>
+      <div class="sketch">
+          <img class="headshot" src="/static/archive/{{ archive.image }}.png">
+          <dl>
+              <dt class="glow">Type</dt>
+              <dd>{{ archive.type }}</dd>
+          </dl>
+          <div class="background">
+              {{ archive.background|safe }}
+          </div>
+      </div>
+{% for item in archive.comments %}
+    <p class="comment">[>> [{{ item.sequence }}]
+{{ item.msg }}
+  ::-{{ item.commenter }} <<]</p>
+  {% endfor %}
+  </div>
+{% include 'footer.html' %}
