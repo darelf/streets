@@ -108,3 +108,6 @@ class Archive:
 
         for x in glob('assets/mission/*.md'):
             self.load_item('mission', x, 'mission')
+
+        for x in glob('assets/archive/*.md'):
+            self.load_item('archive', x, 'archive')

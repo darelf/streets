@@ -99,6 +99,16 @@ async def mission(request, name):
         return redirect('/')
 
 
+@app.get('/archive/<name>')
+async def arc(request, name):
+    c = archive.get_item('archive', bytes(name, 'utf-8'))
+    if c:
+        return html(env.get_template('archive.html').render(title="Street Scum", archive=c, key=name, key_type='archive'))
+    else:
+        # Need a 404 here
+        return redirect('/')
+
+
 @app.get('/list/<txt>')
 async def list_contacts(request, txt):
     c = archive.get_item_list('contact', txt)
